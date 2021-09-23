@@ -51,7 +51,7 @@ class _RootState extends State<Root> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16))),
-                    onTap: (){},
+                    onTap: () => platformPush(context, FirstForm()),
                   ),
                 ),
               ),
