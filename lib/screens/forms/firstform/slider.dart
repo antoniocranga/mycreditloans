@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycreditloans/constants.dart';
 
 class SliderWidget extends StatelessWidget {
   final Function(double) onChangedSlider;
@@ -16,6 +17,8 @@ class SliderWidget extends StatelessWidget {
           child: Text("Suma împrumutată : $currentSliderValue RON"),
         ),
         Slider(
+          activeColor: logoColor,
+          
           value: currentSliderValue,
           onChanged: onChangedSlider,
           min: 100,

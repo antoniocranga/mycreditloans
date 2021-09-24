@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
+import 'package:mycreditloans/constants.dart';
 import 'package:mycreditloans/screens/root.dart';
 
 
@@ -80,7 +81,7 @@ Future<T?> showPlatformAdaptiveDialog<T>({
             actions: [
               if (secondaryAction != null)
                 material.TextButton(
-                  child: Text(secondaryLabel),
+                  child: Text(secondaryLabel , style : TextStyle(color: logoColor)),
                   onPressed: secondaryAction,
                 ),
               if (primaryAction != null)

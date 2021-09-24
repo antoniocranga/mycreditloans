@@ -131,6 +131,7 @@ class _PhotoSectionState extends State<PhotoSection> {
     setState(() {
       photoLabel = "Poză cu ultima factură";
       imagePicked = null;
+      widget.imageFile(null);
     });
   }
 
