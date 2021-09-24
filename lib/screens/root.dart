@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycreditloans/managers/user.dart';
 import 'package:mycreditloans/screens/forms/firstform/firstform.dart';
 import 'package:mycreditloans/utils.dart';
 import 'package:mycreditloans/widgets/largeButton.dart';
@@ -12,8 +13,12 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   @override
+  void initState() {
+    localUser = new User();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
       top: false,

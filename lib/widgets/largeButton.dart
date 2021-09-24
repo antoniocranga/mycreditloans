@@ -5,7 +5,9 @@ import '../constants.dart';
 class LargeButton extends StatelessWidget {
   final VoidCallback? callback;
   final String label;
-  const LargeButton({Key? key, this.callback, required this.label})
+  final bool? loading;
+  const LargeButton(
+      {Key? key, this.callback, required this.label, this.loading})
       : super(key: key);
 
   @override
@@ -22,11 +24,19 @@ class LargeButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(15.0),
           child: Center(
-              child: Text(label,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16))),
+              child: loading == true
+                  ? SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: Colors.white,
+                      ))
+                  : Text(label,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16))),
           onTap: () {
             this.callback?.call();
           },

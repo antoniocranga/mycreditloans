@@ -8,6 +8,7 @@ import 'package:mycreditloans/widgets/largeButton.dart';
 
 import '../../../constants.dart';
 import '../../../utils.dart';
+import '../../root.dart';
 
 class SecondForm extends StatefulWidget {
   SecondForm({Key? key}) : super(key: key);
@@ -32,6 +33,8 @@ class _SecondFormState extends State<SecondForm> {
 
   bool? employed;
   double? paycheck;
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -149,11 +152,18 @@ class _SecondFormState extends State<SecondForm> {
                 },
               ),
               LargeButton(
+                loading: loading,
                 label: "Validează",
                 callback: () {
                   validate();
                 },
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                    "Verifică dacă esti eligibil pentru a lua împrumutul.",
+                    style: infoTextStyle),
+              ),
             ],
           ),
         ),
@@ -189,12 +199,10 @@ class _SecondFormState extends State<SecondForm> {
             primaryLabel: "Revino");
     });
 
-    if (!(firstNameValidator == false ||
-        lastNameValidator == false ||
-        jobTitleValidator == false ||
-        paycheckValidator == false ||
-        employedValidator == false ||
-        imageFile == null)) {
+    if (checkValidators()) {
+      setState(() {
+        loading = true;
+      });
       await localUser.checkEligibility().then((value) {
         localUser = localUser.copyWith(
           employed: employed,
@@ -204,6 +212,22 @@ class _SecondFormState extends State<SecondForm> {
           paycheck: double.parse(paycheckController.text),
           photo: imageFile,
         );
+        setState(() {
+          loading = false;
+        });
+        String title = value == true ? "Eligibil" : "Nu esti eligibil";
+        String content = value == true
+            ? "Felicitări, este eligibil pentru a lua împrumutul."
+            : "Ne pare rău, nu ești eligibil pentru a lua împrumutul.";
+        showPlatformAdaptiveDialog(
+                context: context,
+                title: Text(title),
+                content: Text(content),
+                primaryAction: () {
+                  platformPush(context, Root());
+                },
+                primaryLabel: "închide")
+            .then((value) => platformPush(context, Root()));
         print(value);
       }).onError((error, stackTrace) {
         print(error);
@@ -218,5 +242,14 @@ class _SecondFormState extends State<SecondForm> {
             primaryLabel: "Revino");
       });
     }
+  }
+
+  bool checkValidators() {
+    return !(firstNameValidator == false ||
+        lastNameValidator == false ||
+        jobTitleValidator == false ||
+        paycheckValidator == false ||
+        employedValidator == false ||
+        imageFile == null);
   }
 }
