@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MyCreditLoans',
       theme: customThemeData,
+      themeMode: ThemeMode.light,
       home: Root(),
     );
   }

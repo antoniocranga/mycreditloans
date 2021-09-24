@@ -17,38 +17,43 @@ class _RootState extends State<Root> {
     localUser = new User();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+        ),
         body: SafeArea(
-      top: false,
-      left: false,
-      right: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Image.asset('assets/piggie.png'),
-          Column(
+          top: false,
+          left: false,
+          right: false,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("Investește în tine.",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
-              Text("Ia-ți un împrumut de la MyCreditLoans!",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ))
-            ],
-          ),
-          Column(
-            children: [
-              LargeButton(
-                label: "Continuă",
-                callback: () => platformPush(context, FirstForm()),
+              Image.asset('assets/piggie.png'),
+              Column(
+                children: [
+                  Text("Investește în tine.",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+                  Text("Ia-ți un împrumut de la MyCreditLoans!",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ))
+                ],
               ),
-              Text("Dobândă lunară de la 1%"),
+              Column(
+                children: [
+                  LargeButton(
+                    label: "Începe",
+                    callback: () => platformPush(context, FirstForm()),
+                  ),
+                  Text("Dobândă lunară de la 1%"),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }

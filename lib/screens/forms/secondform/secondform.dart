@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycreditloans/managers/user.dart';
 import 'package:mycreditloans/screens/forms/secondform/photosection.dart';
 import 'package:mycreditloans/widgets/customTextField.dart';
@@ -41,130 +42,136 @@ class _SecondFormState extends State<SecondForm> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(leading: buildCloseButton()),
-      body: SafeArea(
-        bottom: true,
-        top: false,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                child: Text("Informații personale",
-                    style:
-                        TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                child: Text(
-                    "Completeaza sectiunea referitoare la datele personale si la situatia economica actuala.",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400, color: Colors.grey)),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  Expanded(
+      appBar: AppBar(
+        leading: buildCloseButton(),
+      ),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          bottom: true,
+          top: false,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                  child: Text("Informații personale",
+                      style:
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                  child: Text(
+                      "Completeaza sectiunea referitoare la datele personale si la situatia economica actuala.",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400, color: Colors.grey)),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: CustomTextField(
+                            textInputType: TextInputType.name,
+                            controller: firstNameController,
+                            label: "Prenume",
+                            valid: firstNameValidator)),
+                    Expanded(
                       child: CustomTextField(
-                          textInputType: TextInputType.name,
-                          controller: firstNameController,
-                          label: "Prenume",
-                          valid: firstNameValidator)),
-                  Expanded(
-                    child: CustomTextField(
-                      textInputType: TextInputType.name,
-                      controller: lastNameController,
-                      label: "Nume de familie",
-                      valid: lastNameValidator,
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-                  width: size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Angajat?", style: labelTextStyle),
-                      Row(
-                        children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                  value: employed == true,
-                                  onChanged: (value) {
-                                    onChangedCheckbox(true);
-                                  }),
-                              Text("Da")
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Row(
-                            children: [
-                              Checkbox(
-                                  value: employed == false,
-                                  onChanged: (value) {
-                                    onChangedCheckbox(false);
-                                  }),
-                              Text("Nu")
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          if (employedValidator == false)
-                            Text("Completează câmpul",
-                                style: TextStyle(fontSize: 12, color: redColor))
-                        ],
+                        textInputType: TextInputType.name,
+                        controller: lastNameController,
+                        label: "Nume de familie",
+                        valid: lastNameValidator,
                       ),
-                    ],
-                  )),
-              CustomTextField(
-                controller: jobTitleController,
-                label: "Job curent",
-                enabled: employed == true,
-                valid: jobTitleValidator,
-              ),
-              CustomTextField(
-                textInputType: TextInputType.number,
-                controller: paycheckController,
-                label: "Venit lunar",
-                valid: paycheckValidator,
-              ),
-              PhotoSection(
-                imageFile: (imageFileC) {
-                  setState(() {
-                    imageFile = imageFileC;
-                  });
-                },
-              ),
-              LargeButton(
-                loading: loading,
-                label: "Validează",
-                callback: () {
-                  validate();
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                    "Verifică dacă esti eligibil pentru a lua împrumutul.",
-                    style: infoTextStyle),
-              ),
-            ],
+                    ),
+                  ],
+                ),
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 10),
+                    width: size.width,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Angajat?", style: labelTextStyle),
+                        Row(
+                          children: [
+                            Row(
+                              children: [
+                                Checkbox(
+                                    value: employed == true,
+                                    onChanged: (value) {
+                                      onChangedCheckbox(true);
+                                    }),
+                                Text("Da")
+                              ],
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Row(
+                              children: [
+                                Checkbox(
+                                    value: employed == false,
+                                    onChanged: (value) {
+                                      onChangedCheckbox(false);
+                                    }),
+                                Text("Nu")
+                              ],
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            if (employedValidator == false)
+                              Text("Completează câmpul",
+                                  style:
+                                      TextStyle(fontSize: 12, color: redColor))
+                          ],
+                        ),
+                      ],
+                    )),
+                CustomTextField(
+                  controller: jobTitleController,
+                  label: "Job curent",
+                  enabled: employed == true,
+                  valid: jobTitleValidator,
+                ),
+                CustomTextField(
+                  textInputType: TextInputType.number,
+                  controller: paycheckController,
+                  label: "Venit lunar",
+                  valid: paycheckValidator,
+                ),
+                PhotoSection(
+                  imageFile: (imageFileC) {
+                    setState(() {
+                      imageFile = imageFileC;
+                    });
+                  },
+                ),
+                LargeButton(
+                  loading: loading,
+                  label: "Validează",
+                  callback: () {
+                    validate();
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                      "Verifică dacă esti eligibil pentru a lua împrumutul.",
+                      style: infoTextStyle),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -182,10 +189,11 @@ class _SecondFormState extends State<SecondForm> {
       firstNameValidator = firstNameController.text.isNotEmpty;
       lastNameValidator = lastNameController.text.isNotEmpty;
       employedValidator = employed != null;
-      jobTitleValidator =
-          (employedValidator == true && jobTitleController.text.isEmpty)
-              ? false
-              : true;
+      jobTitleValidator = (employedValidator == true &&
+              employed == true &&
+              jobTitleController.text.isEmpty)
+          ? false
+          : true;
       paycheckValidator = paycheckController.text.isNotEmpty;
 
       if (imageFile == null)
@@ -217,7 +225,7 @@ class _SecondFormState extends State<SecondForm> {
         });
         String title = value == true ? "Eligibil" : "Nu esti eligibil";
         String content = value == true
-            ? "Felicitări, este eligibil pentru a lua împrumutul."
+            ? "Felicitări, ești eligibil pentru a lua împrumutul."
             : "Ne pare rău, nu ești eligibil pentru a lua împrumutul.";
         showPlatformAdaptiveDialog(
                 context: context,

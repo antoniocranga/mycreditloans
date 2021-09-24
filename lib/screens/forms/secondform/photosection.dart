@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mycreditloans/constants.dart';
 import 'package:mycreditloans/managers/imagepicker.dart';
+import 'package:mycreditloans/utils.dart';
 
 class PhotoSection extends StatefulWidget {
   final ValueChanged<File?> imageFile;
@@ -112,7 +113,6 @@ class _PhotoSectionState extends State<PhotoSection> {
     );
   }
 
-
 //Functions
   Future<void> uploadPicture(ImageSource source) async {
     await ImagePickerManager.getImageFrom(source).then((value) {
@@ -123,7 +123,15 @@ class _PhotoSectionState extends State<PhotoSection> {
         photoLabel = "Poză adăugată";
       });
     }).onError((error, stackTrace) {
-      print(error);
+      showPlatformAdaptiveDialog(
+          context: context,
+          title: Text("Ups.."),
+          primaryAction: () {
+            Navigator.pop(context);
+          },
+          primaryLabel: "Revino",
+          content: Text(
+              "Permisiuni refuzate definitiv, accesați setările telefonului pentru a accepta."));
     });
   }
 
@@ -142,5 +150,4 @@ class _PhotoSectionState extends State<PhotoSection> {
               child: Image.file(imagePicked!),
             ));
   }
-
 }
