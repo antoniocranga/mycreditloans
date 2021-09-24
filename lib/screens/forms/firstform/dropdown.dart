@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+const List<String> period = const [
+  "Selectează perioada",
+  "1 lună",
+  "3 luni",
+  "6 luni",
+  "1 an"
+];
+
 class DropDownWidget extends StatelessWidget {
   final Function(String?) onChangedDropdown;
   final String? selectedPeriod;
@@ -31,13 +39,7 @@ class DropDownWidget extends StatelessWidget {
             hint: Text("Selectează perioada",
                 style:
                     TextStyle(color: Colors.grey, fontWeight: FontWeight.w500)),
-            items: const [
-              "Selectează perioada",
-              "1 luna",
-              "3 luni",
-              "6 luni",
-              "1 an"
-            ].map((pp) {
+            items: period.map((pp) {
               return DropdownMenuItem(
                 child: new Text(pp),
                 value: pp,

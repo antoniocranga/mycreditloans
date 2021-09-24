@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mycreditloans/managers/user.dart';
 import 'package:mycreditloans/screens/forms/firstform/dropdown.dart';
 import 'package:mycreditloans/screens/forms/firstform/slider.dart';
+import 'package:mycreditloans/screens/forms/secondform/secondform.dart';
 import 'package:mycreditloans/utils.dart';
+import 'package:mycreditloans/widgets/largeButton.dart';
 
 import '../../root.dart';
 
@@ -27,13 +30,13 @@ class _FirstFormState extends State<FirstForm> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-            child: Text("Imprumutul dorit",
+            child: Text("Împrumutul dorit",
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
             child: Text(
-                "Completeaza un prim formular în care vei furniza datele referitoare la împrumut",
+                "Completează un prim formular în care vei furniza datele referitoare la împrumut",
                 style:
                     TextStyle(fontWeight: FontWeight.w400, color: Colors.grey)),
           ),
@@ -48,9 +51,20 @@ class _FirstFormState extends State<FirstForm> {
               selectedPeriod: selectedPeriod),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Text("Rata lunara de : ${rataLunara()}",
+            child: Text("Rata lunară de : ${rataLunara()}",
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
-          )
+          ),
+          Spacer(),
+          if (selectedPeriod != null && selectedPeriod != "Selectează perioada")
+            LargeButton(
+                label: "Continuă",
+                callback: () {
+                  final sum = currentSliderValue;
+                  final period = fromPeriodToInt();
+                  localUser = localUser.copyWith(sum: sum, period: period);
+
+                  platformPush(context, SecondForm());
+                }),
         ],
       ),
     );
@@ -70,7 +84,7 @@ class _FirstFormState extends State<FirstForm> {
 
   int fromPeriodToInt() {
     switch (selectedPeriod) {
-      case "1 luna":
+      case "1 lună":
         return 1;
       case "3 luni":
         return 3;
