@@ -123,6 +123,7 @@ class _PhotoSectionState extends State<PhotoSection> {
         photoLabel = "Poză adăugată";
       });
     }).onError((error, stackTrace) {
+      if(error != "Image null")
       showPlatformAdaptiveDialog(
           context: context,
           title: Text("Ups.."),
