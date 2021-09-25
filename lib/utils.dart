@@ -7,7 +7,6 @@ import 'package:mycreditloans/screens/root.dart';
 
 /// Uses [cupertino.CupertinoPageRoute] on iOS and macOS
 /// Uses [material.MaterialPageRoute] on the other platforms
-///
 Future<T?> platformPush<T>(BuildContext context, Widget screen) {
   switch (material.Theme.of(context).platform) {
     case TargetPlatform.iOS:

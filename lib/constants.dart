@@ -15,7 +15,9 @@ const double kCustomToolbarHeight = 50.0;
 
 const double contentFontSize = 16.0;
 const double infoFontSize = 12.0;
+
 const TextStyle labelTextStyle = TextStyle(
     color: Colors.grey, fontWeight: FontWeight.w500, fontSize: contentFontSize);
+    
 const TextStyle infoTextStyle = TextStyle(
     color: Colors.grey, fontWeight: FontWeight.w500, fontSize: infoFontSize);

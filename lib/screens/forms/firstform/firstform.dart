@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycreditloans/managers/user.dart';
+import 'package:mycreditloans/models/user.dart';
 import 'package:mycreditloans/screens/forms/firstform/slider.dart';
 import 'package:mycreditloans/screens/forms/secondform/secondform.dart';
 import 'package:mycreditloans/utils.dart';
@@ -76,7 +76,7 @@ class _FirstFormState extends State<FirstForm> {
       ),
     );
   }
-  
+
   String rataLunara() {
     final totalSum = currentSliderValue;
     final nrofMonths = fromPeriodToInt();

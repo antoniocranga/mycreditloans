@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mycreditloans/managers/user.dart';
+import 'package:mycreditloans/models/user.dart';
 import 'package:mycreditloans/screens/forms/firstform/firstform.dart';
 import 'package:mycreditloans/utils.dart';
 import 'package:mycreditloans/widgets/largeButton.dart';

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mycreditloans/managers/user.dart';
+import 'package:mycreditloans/models/user.dart';
 import 'package:mycreditloans/screens/forms/secondform/photosection.dart';
 import 'package:mycreditloans/widgets/customTextField.dart';
 import 'package:mycreditloans/widgets/largeButton.dart';
@@ -240,14 +240,19 @@ class _SecondFormState extends State<SecondForm> {
       }).onError((error, stackTrace) {
         print(error);
         showPlatformAdaptiveDialog(
-            context: context,
-            title: Text("Ups.."),
-            content:
-                Text("Am întâmpinat o eroare, încearcă din nou mai târziu."),
-            primaryAction: () {
-              Navigator.pop(context);
-            },
-            primaryLabel: "Revino");
+                context: context,
+                title: Text("Ups.."),
+                content: Text(
+                    "Am întâmpinat o eroare, încearcă din nou mai târziu."),
+                primaryAction: () {
+                  Navigator.pop(context);
+                },
+                primaryLabel: "Revino")
+            .then((value) {
+          setState(() {
+            loading = false;
+          });
+        });
       });
     }
   }

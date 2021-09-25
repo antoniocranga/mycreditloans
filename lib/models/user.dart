@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:mycreditloans/models/api.dart';
 
 class User {
   final double? sum;
@@ -46,19 +47,15 @@ class User {
     final Uri uri = Uri.parse(
         'http://www.randomnumberapi.com/api/v1.0/random?min=1&max=10&count=1');
 
-    final result = await http.get(uri);
-    if (result.statusCode == 200) {
-      try {
-        final body = (jsonDecode(result.body) as List).cast<int>();
-        final answer = body.first;
-        print("Number : $answer");
-        return answer > 5;
-      } catch (e) {
-        return Future.error(e);
-      }
-    } else {
-      print(result.body);
-      return Future.error(result.body);
+    final response = await http.get(uri);
+    try {
+      final body = APIManager.handleResponse(response);
+      final decoded = (jsonDecode(body) as List).cast<int>();
+      final answer = decoded.first;
+      print("Number : $answer");
+      return answer > 5;
+    } catch (e) {
+      return Future.error(e);
     }
   }
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mycreditloans/constants.dart';
-import 'package:mycreditloans/managers/imagepicker.dart';
+import 'package:mycreditloans/models/imagepicker.dart';
 import 'package:mycreditloans/utils.dart';
 
 class PhotoSection extends StatefulWidget {
@@ -81,6 +81,7 @@ class _PhotoSectionState extends State<PhotoSection> {
   Widget uploadedPictureWidget(BuildContext context) {
     return Row(
       children: [
+        // Visualize picture button
         Material(
           type: MaterialType.transparency,
           shape: CircleBorder(),
@@ -94,7 +95,8 @@ class _PhotoSectionState extends State<PhotoSection> {
               visualizePicture(context);
             },
           ),
-        ), // Visualize picture button
+        ), 
+        // Remove picture button
         Material(
           type: MaterialType.transparency,
           shape: CircleBorder(),
@@ -108,7 +110,7 @@ class _PhotoSectionState extends State<PhotoSection> {
               removePicture();
             },
           ),
-        ), // Remove picture button
+        ), 
       ],
     );
   }

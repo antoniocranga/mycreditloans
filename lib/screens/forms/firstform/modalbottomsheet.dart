@@ -46,6 +46,31 @@ class ModalBottomSheet extends StatelessWidget {
   }
 }
 
+Future<void> showBottomSheet(BuildContext context,
+    ValueChanged<String> valueChanged, String? selectedPeriod) {
+  return showModalBottomSheet<void>(
+    context: context,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      final double childSize = (getChildHeight(context)).clamp(0, 1);
+      return DraggableScrollableSheet(
+        maxChildSize: childSize,
+        initialChildSize: childSize,
+        expand: false,
+        builder: (context, controller) {
+          return ModalScreen(
+            valueChanged: valueChanged,
+            selectedPeriod: selectedPeriod,
+          );
+        },
+      );
+    },
+  );
+}
+
 class ModalScreen extends StatefulWidget {
   final ValueChanged<String> valueChanged;
   final String? selectedPeriod;
@@ -64,7 +89,7 @@ class _ModalScreenState extends State<ModalScreen> {
     auxiliary = widget.selectedPeriod;
     super.initState();
   }
-
+  final List<String> period = const ["1 lună", "3 luni", "6 luni", "1 an"];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -103,29 +128,4 @@ class _ModalScreenState extends State<ModalScreen> {
   }
 }
 
-const List<String> period = const ["1 lună", "3 luni", "6 luni", "1 an"];
 
-Future<void> showBottomSheet(BuildContext context,
-    ValueChanged<String> valueChanged, String? selectedPeriod) {
-  return showModalBottomSheet<void>(
-    context: context,
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-    isScrollControlled: true,
-    builder: (BuildContext context) {
-      final double childSize = (getChildHeight(context)).clamp(0, 1);
-      return DraggableScrollableSheet(
-        maxChildSize: childSize,
-        initialChildSize: childSize,
-        expand: false,
-        builder: (context, controller) {
-          return ModalScreen(
-            valueChanged: valueChanged,
-            selectedPeriod: selectedPeriod,
-          );
-        },
-      );
-    },
-  );
-}

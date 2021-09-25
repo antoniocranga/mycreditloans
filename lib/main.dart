@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mycreditloans/screens/root.dart';
 
-import 'managers/themedata.dart';
+import 'models/themedata.dart';
 
 void main() {
   runApp(MyApp());
