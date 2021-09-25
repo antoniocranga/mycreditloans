@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycreditloans/constants.dart';
 import 'package:mycreditloans/models/user.dart';
 import 'package:mycreditloans/screens/forms/firstform/slider.dart';
 import 'package:mycreditloans/screens/forms/secondform/secondform.dart';
 import 'package:mycreditloans/utils.dart';
 import 'package:mycreditloans/widgets/largeButton.dart';
-import 'modalbottomsheet.dart';
+
+import 'modalbottomsheet/modalbottomsheet.dart';
 
 class FirstForm extends StatefulWidget {
   FirstForm({Key? key}) : super(key: key);
@@ -31,14 +33,13 @@ class _FirstFormState extends State<FirstForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: Text("Împrumutul dorit",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
+                  style: titleTextStyle),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: Text(
                   "Completează un prim formular în care vei furniza datele referitoare la împrumut",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400, color: Colors.grey)),
+                  style: contentTextStyle),
             ),
             SizedBox(
               height: 30,

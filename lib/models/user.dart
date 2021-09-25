@@ -60,4 +60,4 @@ class User {
   }
 }
 
-User localUser = User();
+late User localUser;

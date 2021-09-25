@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mycreditloans/models/user.dart';
+import 'package:mycreditloans/screens/forms/secondform/checkboxsection.dart';
 import 'package:mycreditloans/screens/forms/secondform/photosection.dart';
 import 'package:mycreditloans/widgets/customTextField.dart';
 import 'package:mycreditloans/widgets/largeButton.dart';
@@ -39,7 +40,6 @@ class _SecondFormState extends State<SecondForm> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -59,15 +59,14 @@ class _SecondFormState extends State<SecondForm> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                   child: Text("Informații personale",
                       style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.w600)),
+                          titleTextStyle),
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                   child: Text(
                       "Completeaza sectiunea referitoare la datele personale si la situatia economica actuala.",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400, color: Colors.grey)),
+                      style: contentTextStyle),
                 ),
                 SizedBox(
                   height: 30,
@@ -90,54 +89,11 @@ class _SecondFormState extends State<SecondForm> {
                     ),
                   ],
                 ),
-                Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    padding: EdgeInsets.only(left: 16, right: 16, top: 10),
-                    width: size.width,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.0)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Angajat?", style: labelTextStyle),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                Checkbox(
-                                    value: employed == true,
-                                    onChanged: (value) {
-                                      onChangedCheckbox(true);
-                                    }),
-                                Text("Da")
-                              ],
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Row(
-                              children: [
-                                Checkbox(
-                                    value: employed == false,
-                                    onChanged: (value) {
-                                      onChangedCheckbox(false);
-                                    }),
-                                Text("Nu")
-                              ],
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            if (employedValidator == false)
-                              Text("Completează câmpul",
-                                  style:
-                                      TextStyle(fontSize: 12, color: redColor))
-                          ],
-                        ),
-                      ],
-                    )),
+                CheckBoxSection(
+                  callback: onChangedCheckbox,
+                  employedValidator: employedValidator,
+                  employed: employed,
+                ),
                 CustomTextField(
                   controller: jobTitleController,
                   label: "Job curent",
