@@ -5,7 +5,12 @@ class CheckBoxSection extends StatelessWidget {
   final Function(bool) callback;
   final bool? employed;
   final bool employedValidator;
-  const CheckBoxSection({Key? key , required this.callback , this.employed , required this.employedValidator}) : super(key: key);
+  const CheckBoxSection(
+      {Key? key,
+      required this.callback,
+      this.employed,
+      required this.employedValidator})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
