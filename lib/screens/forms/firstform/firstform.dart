@@ -23,7 +23,6 @@ class _FirstFormState extends State<FirstForm> {
   String? selectedPeriod;
   @override
   Widget build(BuildContext context) {
-    final myModel = context.watch<User>();
     return Scaffold(
       appBar: AppBar(leading: buildCloseButton()),
       body: SafeArea(
@@ -61,7 +60,6 @@ class _FirstFormState extends State<FirstForm> {
                 });
               },
             ),
-            Text(myModel.sum.toString()),
             Spacer(),
             if (selectedPeriod != null &&
                 selectedPeriod != "Selectează perioada")

@@ -42,7 +42,6 @@ class _SecondFormState extends State<SecondForm> {
 
   @override
   Widget build(BuildContext context) {
-    final myModel = context.read<User>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
