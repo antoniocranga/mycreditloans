@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mycreditloans/models/api.dart';
 import 'package:mycreditloans/models/user.dart';
 import 'package:mycreditloans/screens/forms/secondform/checkboxsection.dart';
 import 'package:mycreditloans/screens/forms/secondform/photosection.dart';
 import 'package:mycreditloans/widgets/customTextField.dart';
 import 'package:mycreditloans/widgets/largeButton.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../utils.dart';
@@ -57,9 +59,7 @@ class _SecondFormState extends State<SecondForm> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                  child: Text("Informații personale",
-                      style:
-                          titleTextStyle),
+                  child: Text("Informații personale", style: titleTextStyle),
                 ),
                 Padding(
                   padding:
@@ -117,7 +117,7 @@ class _SecondFormState extends State<SecondForm> {
                   loading: loading,
                   label: "Validează",
                   callback: () {
-                    validate();
+                    validate(context);
                   },
                 ),
                 Padding(
@@ -140,7 +140,7 @@ class _SecondFormState extends State<SecondForm> {
     });
   }
 
-  void validate() async {
+  void validate(BuildContext context) async {
     setState(() {
       firstNameValidator = firstNameController.text.isNotEmpty;
       lastNameValidator = lastNameController.text.isNotEmpty;
@@ -167,8 +167,8 @@ class _SecondFormState extends State<SecondForm> {
       setState(() {
         loading = true;
       });
-      await localUser.checkEligibility().then((value) {
-        localUser = localUser.copyWith(
+      await APIManager.checkEligibility().then((value) {
+        Provider.of<User>(context, listen: false).updateFields(
           employed: employed,
           jobTitle: jobTitleController.text,
           firstName: firstNameController.text,
