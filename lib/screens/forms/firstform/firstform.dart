@@ -6,6 +6,7 @@ import 'package:mycreditloans/screens/forms/firstform/slider.dart';
 import 'package:mycreditloans/screens/forms/secondform/secondform.dart';
 import 'package:mycreditloans/utils.dart';
 import 'package:mycreditloans/widgets/largeButton.dart';
+import 'package:provider/provider.dart';
 
 import 'modalbottomsheet/modalbottomsheet.dart';
 
@@ -22,6 +23,7 @@ class _FirstFormState extends State<FirstForm> {
   String? selectedPeriod;
   @override
   Widget build(BuildContext context) {
+    final myModel = context.watch<User>();
     return Scaffold(
       appBar: AppBar(leading: buildCloseButton()),
       body: SafeArea(
@@ -32,8 +34,7 @@ class _FirstFormState extends State<FirstForm> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-              child: Text("Împrumutul dorit",
-                  style: titleTextStyle),
+              child: Text("Împrumutul dorit", style: titleTextStyle),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -60,6 +61,7 @@ class _FirstFormState extends State<FirstForm> {
                 });
               },
             ),
+            Text(myModel.sum.toString()),
             Spacer(),
             if (selectedPeriod != null &&
                 selectedPeriod != "Selectează perioada")
@@ -68,8 +70,8 @@ class _FirstFormState extends State<FirstForm> {
                   callback: () {
                     final sum = currentSliderValue;
                     final period = fromPeriodToInt();
-                    localUser = localUser.copyWith(sum: sum, period: period);
-
+                    Provider.of<User>(context, listen: false)
+                        .updateFields(sum: sum, period: period);
                     platformPush(context, SecondForm());
                   }),
           ],

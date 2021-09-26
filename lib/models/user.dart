@@ -1,63 +1,43 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:mycreditloans/models/api.dart';
+import 'package:flutter/material.dart';
 
-class User {
-  final double? sum;
-  final int? period;
-  final String? firstName;
-  final String? lastName;
-  final bool? employed;
-  final String? jobTitle;
-  final double? paycheck;
-  final File? photo;
-  User(
-      {this.sum,
-      this.period,
-      this.firstName,
-      this.lastName,
-      this.employed,
-      this.jobTitle,
-      this.photo,
-      this.paycheck});
+class User extends ChangeNotifier {
+  double? _sum;
+  int? _period;
+  String? _lastName;
+  String? _firstName;
+  bool? _employed;
+  String? _jobTitle;
+  double? _paycheck;
+  File? _photo;
 
-  User copyWith(
-      {double? sum,
-      int? period,
-      String? firstName,
-      String? lastName,
-      bool? employed,
-      String? jobTitle,
-      double? paycheck,
-      File? photo}) {
-    return User(
-      sum: sum ?? this.sum,
-      period: period ?? this.period,
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      employed: employed ?? this.employed,
-      jobTitle: jobTitle ?? this.jobTitle,
-      paycheck: paycheck ?? this.paycheck,
-      photo: photo ?? this.photo,
-    );
-  }
+  double? get sum => _sum;
+  int? get period => _period;
+  String? get firstName => _firstName;
+  String? get lastName => _lastName;
+  bool? get employed => _employed;
+  String? get jobTitle => _jobTitle;
+  double? get paycheck => _paycheck;
+  File? get photo => _photo;
 
-  Future<bool?> checkEligibility() async {
-    final Uri uri = Uri.parse(
-        'http://www.randomnumberapi.com/api/v1.0/random?min=1&max=10&count=1');
-
-    final response = await http.get(uri);
-    try {
-      final body = APIManager.handleResponse(response);
-      final decoded = (jsonDecode(body) as List).cast<int>();
-      final answer = decoded.first;
-      print("Number : $answer");
-      return answer > 5;
-    } catch (e) {
-      return Future.error(e);
-    }
+  void updateFields({
+    double? sum,
+    int? period,
+    String? lastName,
+    String? firstName,
+    bool? employed,
+    String? jobTitle,
+    double? paycheck,
+    File? photo,
+  }) {
+    _sum = sum ?? _sum;
+    _period = period ?? _period;
+    _lastName = lastName ?? _lastName;
+    _firstName = firstName ?? _firstName;
+    _employed = employed ?? _employed;
+    _jobTitle = jobTitle ?? _jobTitle;
+    _paycheck = paycheck ?? _paycheck;
+    _photo = photo ?? _photo;
+    notifyListeners();
   }
 }
-
-late User localUser;

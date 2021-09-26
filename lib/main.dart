@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mycreditloans/screens/root.dart';
+import 'package:provider/provider.dart';
 
 import 'models/themedata.dart';
+import 'models/user.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => User(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
