@@ -1,6 +1,6 @@
 # MyCreditLoans <img src = "assets/logo.png" width = 30>
 
- Technical coding challenge project for [Evonomix](https://www.evonomix.com/) 
+ Technical coding challenge project for [Evonomix](https://www.evonomix.com/) using Dart/Flutter
 
 ## Getting Started
 
